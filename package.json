@@ -1,0 +1,15 @@
+{
+  "name": "notifications-page-main",
+  "private": true,
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "build": "npx tailwindcss -i ./main.css -o ./dist/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  },
+  "author": "leamsixthacoder",
+  "license": "ISC",
+  "description": ""
+}
