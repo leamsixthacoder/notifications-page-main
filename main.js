@@ -1,4 +1,4 @@
-const notifications = [
+const notificationsList = [
     {
         id: 1, 
         user: 'Mark Webber',
@@ -72,3 +72,17 @@ const notifications = [
 
 ]
 
+const notificationCount = document.querySelector("#notificationCount")
+
+function countNotifications() {
+    let count = 0
+    notificationsList.forEach(notification => {
+        if(notification.active) {
+            count+= 1
+        }
+    })
+    console.log(count)
+    notificationCount.innerHTML = count
+
+}
+countNotifications()
