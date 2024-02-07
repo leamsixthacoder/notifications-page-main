@@ -1,5 +1,5 @@
-const notificationsList = [
-    {
+// Notification List
+const notificationsList = [{
         id: 1,
         user: 'Mark Webber',
         user_image_path: 'src/assets/images/avatar-mark-webber.webp',
@@ -87,9 +87,11 @@ const notificationsList = [
 
 ]
 
+//Declare variables for elements
+const notificationCount = document.querySelector('#notificationCount')
+const markAllAsReadAction = document.querySelector('#markAllAsRead')
 
-const notificationCount = document.querySelector("#notificationCount")
-
+//Count the amount of notificacions
 const countNotifications = () => {
     let count = 0
     notificationsList.forEach(notification => {
@@ -102,16 +104,36 @@ const countNotifications = () => {
 }
 countNotifications()
 
-const iterateNotifications = () => {
+// Mark notification as read 
+const markAsRead = index => {
+    const container = document.getElementById(notificationsList[index].id);
+    container.classList.remove('bg-[#f6fafd]');
+    notificationsList[index].active = false;
+    countNotifications();
+}
+
+//// Mark all notifications as read 
+const markAllAsRead = () => {
+    notificationsList.forEach((notification) => {
+        const container = document.getElementById(notification.id);
+        container.classList.remove('bg-[#f6fafd]');
+        notification.active = false;
+    });
+
+    countNotifications();
+}
+
+// Load Notifications
+const loadNotifications = () => {
 
     const main = document.getElementById('main')
-    notificationsList.forEach(notification => {
+    notificationsList.forEach((notification, index) => {
         //create container div
         const container = document.createElement('div');
-            (notification.active) ?
-            container.className = 'bg-[#f6fafd] flex py-4 mx-5 rounded my-2'
-            :
-            container.className = 'flex py-4 mx-5 rounded  my-2'
+        
+        container.className = notification.active
+         ?'bg-[#f6fafd] flex py-4 mx-5 rounded my-2 cursor-pointer'
+         : 'flex py-4 mx-5 rounded  my-2 cursor-pointer'
 
         container.id = notification.id
         //create user image container
@@ -171,10 +193,17 @@ const iterateNotifications = () => {
         container.appendChild(userImageContainer)
         container.appendChild(contentContainer)
 
+        container.addEventListener('click', () => {
+            markAsRead(index);
+        });
+
         // Append the new container to the main element
         main.appendChild(container)
 
 
     })
 }
-iterateNotifications()
+loadNotifications()
+
+
+markAllAsReadAction.addEventListener('click', markAllAsRead)
